@@ -4,14 +4,14 @@ using namespace gmath;
 using namespace ggfx;
 
 const Matrix4 LiSPSM::NormalToLightSpace(1,  0,  0,  0,
-																			    0,  0, -1,  0,
-																			    0,  1,  0,  0,
-																			    0,  0,  0,  1 );
+                                          0,  0, -1,  0,
+                                          0,  1,  0,  0,
+                                          0,  0,  0,  1 );
 
 const Matrix4 LiSPSM::LightToNormalSpace(1,  0,  0,  0,
-																			    0,  0,  1,  0,
-																			    0, -1,  0,  0,
-																			    0,  0,  0,  1 );
+                                          0,  0,  1,  0,
+                                          0, -1,  0,  0,
+                                          0,  0,  0,  1 );
 
 const Matrix4 LiSPSM::InvZ = Matrix4::MakeScale(Vector3(1, 1, -1));
 
@@ -101,26 +101,26 @@ void LiSPSM::calcLVS(PointList &pts) {
 
 Vector3 LiSPSM::calcNearCameraPoint(const PointList &pts) {
   if (pts.size() == 0) {
-	  return Vector3(0,0,0);
-	}
-	int count = 1;
-	Vector3 nearW = pts[0];
-	Vector3 nearE = mScn->getCameraViewMatrix() * nearW;
-	float nearZ = nearE.z;
-	for (size_t i=1; i<pts.size(); ++i) {
-	  const Vector3 &ptW = pts[i];
-	  Vector3 ptE = mScn->getCameraViewMatrix() * ptW;
-	  if (fabs(ptE.z - nearZ) < 0.001) {
-	    nearW += ptW;
-	    count += 1;
-	  } else if (ptE.z > nearZ) {
-	    nearW = ptW;
-	    nearZ = ptE.z;
-	    count = 1;
-	  }
-	}
-	mE = nearW / float(count);
-	return mE;
+    return Vector3(0,0,0);
+  }
+  int count = 1;
+  Vector3 nearW = pts[0];
+  Vector3 nearE = mScn->getCameraViewMatrix() * nearW;
+  float nearZ = nearE.z;
+  for (size_t i=1; i<pts.size(); ++i) {
+    const Vector3 &ptW = pts[i];
+    Vector3 ptE = mScn->getCameraViewMatrix() * ptW;
+    if (fabs(ptE.z - nearZ) < 0.001) {
+      nearW += ptW;
+      count += 1;
+    } else if (ptE.z > nearZ) {
+      nearW = ptW;
+      nearZ = ptE.z;
+      count = 1;
+    }
+  }
+  mE = nearW / float(count);
+  return mE;
 }
 
 Vector3 LiSPSM::calcProjViewDir(const Matrix4 &LS, const PointList &pts) {
@@ -194,14 +194,14 @@ float LiSPSM::calcN(const Matrix4 &LS, const AABox &bBoxLS) {
   
 #if 0
   float d = float(fabs(bBoxLS.max().z - bBoxLS.min().z));
-	return d / ( float(sqrt(z1/z0)) - 1.0f );
+  return d / ( float(sqrt(z1/z0)) - 1.0f );
 #else
 # if 0
   float cn = mScn->getCameraNear();
-	float d = float(fabs(mScn->getCameraFar() - cn));
+  float d = float(fabs(mScn->getCameraFar() - cn));
   float dp = mScn->getCameraViewDirection().dot(mLightDir); // cosGamma
   float sinGamma = float(sqrt(1.0f - dp*dp));
-	return (cn + float(sqrt(cn * (cn + d*sinGamma)))) / sinGamma;
+  return (cn + float(sqrt(cn * (cn + d*sinGamma)))) / sinGamma;
 # else
   return (mScn->getCameraNear() + float(sqrt(z0 * z1) * 5.0f));
 # endif
