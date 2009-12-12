@@ -28,11 +28,12 @@ USA.
 
 namespace ggfx {
   
-#ifndef __APPLE__
-  typedef unsigned int ID; // on windows/linux GLuint is defined as unsigned int
-#else
-  typedef unsigned long ID; // on OSX GLuint is defined as unsigned long
-#endif
+//#ifndef __APPLE__
+//  typedef unsigned int ID; // on windows/linux GLuint is defined as unsigned int
+//#else
+//  typedef unsigned long ID; // on OSX GLuint is defined as unsigned long
+//#endif
+  typedef GLuint ID;
   
   class GGFX_API BufferObject {
 

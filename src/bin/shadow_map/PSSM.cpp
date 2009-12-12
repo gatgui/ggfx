@@ -193,6 +193,7 @@ bool PSSM::update(unsigned int flags) {
     updateCameraHull();
   }
   splitCameraFrustum(flags); // this will compute proj and view for each split
+  return true;
 }
 
 void PSSM::setCurrentLayer(int i) {
@@ -230,7 +231,7 @@ void PSSM::setupCasterProgram() {
   mCasterProg->uniform("depthBias")->set(mDepthBias);
 }
 
-void PSSM::setupReceiverProgram(bool noLighting) {
+void PSSM::setupReceiverProgram(bool /*noLighting*/) {
   //cout << "PSSM::setupReceiverProgram" << endl;
 #ifdef PSSM_SINGLE_PASS_LIGHTING
   GLint baseUnit = GLint(mScn->getShadowMapTexUnit());

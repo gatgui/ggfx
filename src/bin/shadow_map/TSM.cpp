@@ -10,7 +10,7 @@ TSM::TSM(const ISceneData *scn)
 TSM::~TSM() {
 }
 
-void TSM::enablePCF(bool on) {
+void TSM::enablePCF(bool /*on*/) {
   /*
   ProgramManager &mgr = ProgramManager::Instance();
   if (on) {
@@ -39,7 +39,7 @@ void TSM::enablePCF(bool on) {
   */
 }
 
-void TSM::enableVSM(bool on) {
+void TSM::enableVSM(bool /*on*/) {
   /*
   ProgramManager &mgr = ProgramManager::Instance();
   if (on) {
