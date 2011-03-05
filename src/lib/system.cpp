@@ -50,12 +50,11 @@ namespace ggfx {
     return msInstance;
   }
   
-  bool System::enumPlugin(const string &dir, const string &fname, gcore::FileType type) {
-    if (type == gcore::FT_FILE) {
+  bool System::enumPlugin(const gcore::Path &path) {
+    if (path.isFile()) {
 
-      if (gcore::FileExtension(fname) == "gpl") {
+      if (path.checkExtension("gpl")) {
 
-        std::string path = gcore::JoinPath(dir, fname);
         cout << "Loading plugin: " << path << endl;
         loadPlugin(path);
       }
@@ -64,12 +63,12 @@ namespace ggfx {
   }
   
   void System::initialize(const std::string &pluginRepositoryPath) {
-    gcore::EnumFilesCallback callback;
-    gcore::MakeCallback(this, METHOD(System,enumPlugin), callback);
+    gcore::Path::EachFunc callback;
+    gcore::Bind(this, METHOD(System, enumPlugin), callback);
     if (pluginRepositoryPath.length() == 0) {
-      gcore::ForEachInDir(".", callback);
+      gcore::Path(".").each(callback);
     } else {
-      gcore::ForEachInDir(pluginRepositoryPath, callback);
+      gcore::Path(pluginRepositoryPath).each(callback);
     }
   }
   

@@ -49,7 +49,7 @@ namespace ggfx {
       
     private:
       
-      bool enumPlugin(const std::string&, const std::string&, gcore::FileType);
+      bool enumPlugin(const gcore::Path &path);
       
       static System *msInstance;
       

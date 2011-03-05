@@ -52,8 +52,8 @@ namespace ggfx {
     mMaterial = m;
     if (mMaterial) {
       Material::EventHandlers handlers;
-      gcore::MakeCallback(this, RO_METHOD(onMaterialDestroyed), handlers.destroyed);
-      // gcore::MakeCallback(this, RO_METHOD(onMaterialChanged), handlers.changed);
+      gcore::Bind(this, RO_METHOD(onMaterialDestroyed), handlers.destroyed);
+      // gcore::Bind(this, RO_METHOD(onMaterialChanged), handlers.changed);
       m->connect(this, handlers);
     }
   }

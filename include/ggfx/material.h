@@ -43,8 +43,8 @@ namespace ggfx {
       };
       
       struct EventHandlers {
-        gcore::Callback2<const Material*, ChangedParam> changed;
-        gcore::Callback1<const Material*> destroyed;
+        gcore::Functor2<const Material*, ChangedParam> changed;
+        gcore::Functor1<const Material*> destroyed;
       };
       
       // ---

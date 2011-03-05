@@ -261,15 +261,7 @@ class ObjFactory : public ggfx::MeshFactory {
     }
     
     virtual bool canLoad(const std::string &fileName) const {
-      return gcore::CheckFileExtension(fileName, EXT);
-      /*
-      std::string ext = gcore::FileExt(fileName);
-#ifdef WIN32
-      return (stricmp(EXT.c_str(), ext.c_str()) == 0);
-#else
-      return (strcasecmp(EXT.c_str(), ext.c_str()) == 0);
-#endif
-      */
+      return gcore::Path(fileName).checkExtension(EXT);
     }
     
     virtual Mesh* create(const std::string &fileName, BufferObject::Usage usage, const std::string &name, float scl=1.0f) {
