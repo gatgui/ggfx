@@ -264,6 +264,10 @@ class FrameState : public ShadowAlgorithm::ISceneData {
 #endif
       mBunny = MeshManager::Instance().create("share/models/bunny-1500.obj", BufferObject::BOU_STATIC, "Bunny");
       mHorse = MeshManager::Instance().create("share/models/cow-1500.obj", BufferObject::BOU_STATIC, "Horse");
+      if (!mBunny || !mHorse) {
+        std::cout << "FAILED" << std::endl;
+        exit(-1);
+      }
       VertexFormat *fmt = VertexFormat::Get(VERTEX_FORMAT);
       mPlane = createIndexedStaticMesh(fmt,
         PlaneVertexData, 4, sizeof(PlaneVertexData),
@@ -1589,10 +1593,13 @@ static void Cleanup() {
   FrameState::Instance().cleanup();
 }
 
-static void InitGL() {
+static void InitGL(const gcore::Path &apppath) {
+  gcore::Path plgpath = apppath;
+  plgpath.pop();
+  plgpath.push("share").push("plugins").push("ggfx");
   //ggfx::InitExtensions();
   ggfx::System *s = new ggfx::System();
-  s->initialize("./share/plugins/ggfx");
+  s->initialize(plgpath.fullname());
   ggfx::Renderer *r = new ggfx::Renderer();
   r->initialize();
   
@@ -1614,13 +1621,17 @@ static void InitGL() {
 }
 
 int main(int argc, char **argv) {
+  gcore::Path apppath(argv[0]);
+  apppath.makeAbsolute();
+  apppath.pop();
+  
   atexit(Cleanup);
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGBA|GLUT_DEPTH|GLUT_DOUBLE);
   glutInitWindowPosition(100,100);
   glutInitWindowSize(512,512);
   glutCreateWindow("ShadowMap test");
-  InitGL();
+  InitGL(apppath);
   glutReshapeFunc(&FrameState::OnReshape);
   glutDisplayFunc(&FrameState::OnDraw);
   glutKeyboardFunc(&FrameState::OnKeyboard);
