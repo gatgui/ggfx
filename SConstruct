@@ -32,7 +32,7 @@ prjs = [
     "libs"    : ["ggfx", "gmath", "gcore"],
     "incdirs" : ["gcore/include", "gmath/include", "include"]
   },
-  { "name"    : "tests",
+  { "name"    : "ggfx_tests",
     "type"    : "testprograms",
     "srcs"    : glob.glob("src/tests/*.cpp"),
     "libs"    : ["ggfx", "gmath", "gcore"],
