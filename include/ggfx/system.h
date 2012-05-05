@@ -28,10 +28,10 @@ USA.
 
 namespace ggfx {
   
-  BEGIN_MODULE_INTERFACE  ( Plugin       )
-    DEFINE_MODULE_SYMBOL0 ( initialize   )
-    DEFINE_MODULE_SYMBOL0 ( deInitialize )
-  END_MODULE_INTERFACE
+  GCORE_BEGIN_MODULE_INTERFACE  ( Plugin       )
+    GCORE_DEFINE_MODULE_SYMBOL0 ( initialize   )
+    GCORE_DEFINE_MODULE_SYMBOL0 ( deInitialize )
+  GCORE_END_MODULE_INTERFACE
   
   class GGFX_API System {
     

@@ -281,7 +281,7 @@ std::string ObjFactory::EXT = "obj";
 static ObjFactory *gFactory = NULL;
 
 
-MODULE_API void initialize() {
+GCORE_MODULE_API void initialize() {
   ggfx::MeshManager &mm = ggfx::MeshManager::Instance();
   if (!gFactory) {
     gFactory = new ObjFactory();
@@ -290,7 +290,7 @@ MODULE_API void initialize() {
   cout << "OBJ Mesh Plugin loaded" << endl;
 }
 
-MODULE_API void deInitialize() {
+GCORE_MODULE_API void deInitialize() {
   ggfx::MeshManager &mm = ggfx::MeshManager::Instance();
   mm.unregisterFactory(gFactory);
   delete gFactory;

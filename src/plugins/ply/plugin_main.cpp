@@ -432,7 +432,7 @@ std::string PlyFactory::EXT = "ply";
 static PlyFactory *gFactory = NULL;
 
 
-MODULE_API void initialize() {
+GCORE_MODULE_API void initialize() {
   ggfx::MeshManager &mm = ggfx::MeshManager::Instance();
   if (!gFactory) {
     gFactory = new PlyFactory();
@@ -441,7 +441,7 @@ MODULE_API void initialize() {
   cout << "PLY Mesh Plugin loaded" << endl;
 }
 
-MODULE_API void deInitialize() {
+GCORE_MODULE_API void deInitialize() {
   ggfx::MeshManager &mm = ggfx::MeshManager::Instance();
   mm.unregisterFactory(gFactory);
   delete gFactory;
